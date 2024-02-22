@@ -1,5 +1,6 @@
 export module dl;
 import hai;
+import jute;
 
 export namespace dl {
 class lib {

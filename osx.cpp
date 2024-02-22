@@ -3,6 +3,7 @@ module;
 
 module dl;
 import hai;
+import jute;
 
 namespace dl {
 class osx_lib : public lib {
@@ -15,8 +16,11 @@ public:
   void *sym(const char *name) { return dlsym(m_h, name); }
 };
 
+// TODO: check if this works in iOS as-is
 hai::uptr<lib> open(const char *name) {
-  auto h = dlopen(name, RTLD_NOW | RTLD_LOCAL);
+  auto fn = jute::view::unsafe(name) + ".dylib";
+  auto fns = fn.cstr();
+  auto h = dlopen(fns.data(), RTLD_NOW | RTLD_LOCAL);
   if (!h)
     return {};
 
