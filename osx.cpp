@@ -17,7 +17,10 @@ public:
   ~osx_lib() { dlclose(m_h); }
 
   void *sym(const char *name) override {
+    bool first = m_last_sym == nullptr;
     m_last_sym = dlsym(m_h, name);
+    if (first)
+      lib::mtime(mtime());
     return m_last_sym;
   }
 
