@@ -3,6 +3,9 @@ module;
 #include <stdio.h>
 #include <sys/stat.h>
 
+#define MTIME_IMPLEMENTATION
+#include "../mtime/mtime.h"
+
 module dl;
 import hai;
 import jute;
@@ -29,12 +32,7 @@ public:
     // library path in OSX. Somehow it gets worse if we use dyld's functions.
     Dl_info dli{};
     dladdr(m_last_sym, &dli);
-
-    struct stat s {};
-    stat(dli.dli_fname, &s);
-    auto mtime = s.st_mtimespec;
-    return static_cast<unsigned long>(mtime.tv_sec) * 1000000000ul +
-           static_cast<unsigned long>(mtime.tv_nsec);
+    return mtime_of(dli.dli_fname);
   }
 };
 

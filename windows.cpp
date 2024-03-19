@@ -3,6 +3,9 @@ module;
 #include <sys/stat.h>
 #include <windows.h>
 
+#define MTIME_IMPLEMENTATION
+#include "../mtime/mtime.h"
+
 module dl;
 import hai;
 
@@ -21,10 +24,7 @@ public:
   unsigned long mtime() const noexcept override {
     char buf[1024]{};
     GetModuleFileNameA(m_h, buf, sizeof(buf));
-
-    struct __stat64 s {};
-    _stat64(buf, &s);
-    return s.st_mtime;
+    return mtime_of(buf);
   }
 };
 
