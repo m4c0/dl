@@ -3,9 +3,16 @@
 
 import dl;
 import silog;
+import sitime;
 
 int main(int argc, char **argv) {
-  auto h = dl::open("poc-dll");
-  auto fn = h->fn<void()>("hello");
-  fn();
+  while (true) {
+    auto h = dl::open("poc-dll");
+    auto fn = h->fn<void()>("hello");
+    fn();
+
+    while (!h->modified()) {
+      sitime::sleep(1);
+    }
+  }
 }
