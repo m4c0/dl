@@ -29,6 +29,8 @@ export hai::uptr<lib> open(const char *name);
 #pragma leco add_impl "osx.cpp"
 #elif LECO_TARGET_WINDOWS
 #pragma leco add_impl "windows.cpp"
+#elif LECO_TARGET_LINUX
+#pragma leco add_impl "linux.cpp"
 #else
 #error Unsupported platform
 #endif
