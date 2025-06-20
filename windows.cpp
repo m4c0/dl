@@ -3,11 +3,9 @@ module;
 #include <sys/stat.h>
 #include <windows.h>
 
-#define MTIME_IMPLEMENTATION
-#include "../mtime/mtime.h"
-
 module dl;
 import hai;
+import mtime;
 
 namespace dl {
 class win_lib : public lib {
@@ -24,7 +22,7 @@ public:
   unsigned long mtime() const noexcept override {
     char buf[1024]{};
     GetModuleFileNameA(m_h, buf, sizeof(buf));
-    return mtime_of(buf);
+    return mtime::of(buf);
   }
 };
 

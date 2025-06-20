@@ -3,12 +3,10 @@ module;
 #include <stdio.h>
 #include <sys/stat.h>
 
-#define MTIME_IMPLEMENTATION
-#include "../mtime/mtime.h"
-
 module dl;
 import hai;
 import jute;
+import mtime;
 
 namespace dl {
 class osx_lib : public lib {
@@ -32,7 +30,7 @@ public:
     // library path in OSX. Somehow it gets worse if we use dyld's functions.
     Dl_info dli{};
     dladdr(m_last_sym, &dli);
-    return mtime_of(dli.dli_fname);
+    return mtime::of(dli.dli_fname);
   }
 };
 
