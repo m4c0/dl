@@ -1,5 +1,5 @@
 #pragma leco app
-#pragma leco add_build_dep "poc-dll.cpp"
+#pragma leco add_plugin "poc-dll.cpp"
 
 import dl;
 import silog;
